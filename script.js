@@ -224,38 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // VIDEO PLAY/PAUSE ON CLICK (lite-youtube)
-  // ==========================================
-  let currentPlayingCard = null;
-
-  document.querySelectorAll('.asset-card__media').forEach(wrapper => {
-    const liteYT = wrapper.querySelector('lite-youtube');
-    const overlay = wrapper.querySelector('.video-play-overlay');
-    if (!liteYT) return;
-
-    wrapper.addEventListener('click', (e) => {
-      e.stopPropagation();
-
-      if (currentPlayingCard === wrapper) {
-        if (overlay) overlay.classList.add('hidden');
-        return;
-      }
-
-      if (currentPlayingCard) {
-        const prevYT = currentPlayingCard.querySelector('lite-youtube');
-        const prevOverlay = currentPlayingCard.querySelector('.video-play-overlay');
-        if (prevYT && prevYT.querySelector('iframe')) {
-          prevYT.querySelector('iframe').contentWindow.postMessage('{"command":"pause"}', '*');
-        }
-        if (prevOverlay) prevOverlay.classList.remove('hidden');
-      }
-
-      currentPlayingCard = wrapper;
-      if (overlay) overlay.classList.add('hidden');
-    });
-  });
-
-  // ==========================================
   // PROJECT CARD PARALLAX (subtle)
   // ==========================================
   const projectCards = document.querySelectorAll('.project-card');

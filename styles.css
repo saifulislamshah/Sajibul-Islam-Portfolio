@@ -1920,32 +1920,6 @@ lite-youtube[ready] .lty-playbtn {
   transform: translateY(0);
 }
 
-/* Play Overlay */
-.video-play-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(8, 20, 33, 0.35);
-  opacity: 1;
-  transition: opacity 0.4s var(--ease-out);
-  color: white;
-  pointer-events: none;
-  z-index: 2;
-  border-radius: 14px;
-}
-
-.video-play-overlay.hidden {
-  opacity: 0;
-}
-
-.video-play-overlay svg {
-  width: 48px;
-  height: 48px;
-  opacity: 0.8;
-}
-
 /* ================= VIEW MORE BUTTON ================= */
 .video-view-more-wrap {
   display: flex;
