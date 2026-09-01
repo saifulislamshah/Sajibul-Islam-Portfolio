@@ -1801,7 +1801,7 @@ lite-youtube[ready] .lty-playbtn {
 .asset-card {
   background: var(--bg-secondary);
   border-radius: 20px;
-  padding: 24px 24px 0;
+  padding: 24px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
