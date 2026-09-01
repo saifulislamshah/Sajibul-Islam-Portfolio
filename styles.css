@@ -1793,27 +1793,6 @@ lite-youtube[ready] .lty-playbtn {
   margin-top: 64px;
 }
 
-/* Hidden cards */
-.video-card-hidden {
-  display: none;
-}
-
-.video-card-hidden.video-card-visible {
-  display: block;
-  animation: fadeSlideUp 0.5s var(--ease-out) forwards;
-}
-
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* ================= CARD SHELL ================= */
 .asset-card {
   background: var(--bg-secondary);
@@ -1959,9 +1938,7 @@ lite-youtube[ready] .lty-playbtn {
   transform: translateY(2px);
 }
 
-.video-view-more-btn.btn-hidden {
-  display: none;
-}
+
 
 /* ================= RESPONSIVE ================= */
 /* Wide screens / zoomed out: 6 columns */

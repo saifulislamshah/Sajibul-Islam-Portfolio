@@ -166,60 +166,71 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // VIDEO FILTER
+  // VIDEO FILTER + VIEW MORE (12 per page)
   // ==========================================
+  const CARDS_PER_PAGE = 12;
   const filterButtons = document.querySelectorAll('.video-filter');
-  const videoCards = document.querySelectorAll('.asset-card[data-category]');
+  const allVideoCards = document.querySelectorAll('.asset-card[data-category]');
   const viewMoreWrap = document.querySelector('.video-view-more-wrap');
+  const viewMoreBtn = document.getElementById('viewMoreBtn');
+  let currentFilter = 'all';
+  let showingAll = false;
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  function applyFilter(filter, showAll) {
+    currentFilter = filter;
+    showingAll = showAll;
+    let matchCount = 0;
 
-      const filter = btn.getAttribute('data-filter');
+    allVideoCards.forEach(card => {
+      const matches = filter === 'all' || card.getAttribute('data-category') === filter;
 
-      videoCards.forEach(card => {
-        const matches = filter === 'all' || card.getAttribute('data-category') === filter;
-
-        if (matches) {
-          // Show all matching cards (including hidden ones)
-          card.classList.remove('video-card-hidden');
+      if (matches) {
+        matchCount++;
+        if (showAll || matchCount <= CARDS_PER_PAGE) {
           card.style.display = '';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
           setTimeout(() => {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
           }, 50);
         } else {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(20px)';
-          setTimeout(() => {
-            card.style.display = 'none';
-          }, 300);
+          card.style.display = 'none';
         }
-      });
-
-      // Show View More only for "all" filter
-      if (viewMoreWrap) {
-        viewMoreWrap.style.display = filter === 'all' ? '' : 'none';
+      } else {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.display = 'none';
+        }, 300);
       }
+    });
+
+    // Show View More only if more than CARDS_PER_PAGE match
+    if (viewMoreWrap) {
+      if (matchCount > CARDS_PER_PAGE && !showAll) {
+        viewMoreWrap.style.display = '';
+      } else {
+        viewMoreWrap.style.display = 'none';
+      }
+    }
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.getAttribute('data-filter'), false);
     });
   });
 
-  // ==========================================
-  // VIEW MORE BUTTON
-  // ==========================================
-  const viewMoreBtn = document.getElementById('viewMoreBtn');
-  const hiddenCards = document.querySelectorAll('.video-card-hidden');
+  // Initial state: show first 12
+  applyFilter('all', false);
 
+  // View More button
   if (viewMoreBtn) {
     viewMoreBtn.addEventListener('click', () => {
-      hiddenCards.forEach((card, i) => {
-        setTimeout(() => {
-          card.classList.add('video-card-visible');
-        }, i * 100);
-      });
-      viewMoreBtn.classList.add('btn-hidden');
+      applyFilter(currentFilter, true);
     });
   }
 
