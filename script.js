@@ -166,27 +166,67 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // VIDEO FILTER + VIEW MORE (12 per page)
+  // VIDEO FILTER + VIEW MORE + INTERLEAVE
   // ==========================================
   const CARDS_PER_PAGE = 12;
+  const videoGrid = document.getElementById('videoGrid');
   const filterButtons = document.querySelectorAll('.video-filter');
-  const allVideoCards = document.querySelectorAll('.asset-card[data-category]');
+  const allVideoCards = Array.from(document.querySelectorAll('.asset-card[data-category]'));
   const viewMoreWrap = document.querySelector('.video-view-more-wrap');
   const viewMoreBtn = document.getElementById('viewMoreBtn');
   let currentFilter = 'all';
   let showingAll = false;
 
+  // Store original order for restoring
+  const originalOrder = [...allVideoCards];
+
+  // Get interleaving pattern based on viewport width
+  function getInterleavePattern() {
+    const w = window.innerWidth;
+    if (w <= 900) return { reelsPerGroup: 2, brandsPerGroup: 1 }; // Mobile
+    if (w <= 1200) return { reelsPerGroup: 6, brandsPerGroup: 3 }; // Mini PC
+    return { reelsPerGroup: 4, brandsPerGroup: 2 }; // Full PC
+  }
+
+  // Build interleaved order: reels first in groups, then brand cards mixed in
+  function buildInterleavedOrder() {
+    const reels = allVideoCards.filter(c => c.getAttribute('data-category') === 'reels');
+    const brands = allVideoCards.filter(c => c.getAttribute('data-category') === 'brand');
+    const { reelsPerGroup, brandsPerGroup } = getInterleavePattern();
+    const result = [];
+    let rIdx = 0;
+    let bIdx = 0;
+
+    while (rIdx < reels.length || bIdx < brands.length) {
+      // Add a group of reels
+      for (let i = 0; i < reelsPerGroup && rIdx < reels.length; i++) {
+        result.push(reels[rIdx++]);
+      }
+      // Add a group of brands
+      for (let i = 0; i < brandsPerGroup && bIdx < brands.length; i++) {
+        result.push(brands[bIdx++]);
+      }
+    }
+    return result;
+  }
+
+  // Reorder DOM to match given array
+  function reorderDOM(cards) {
+    cards.forEach(card => videoGrid.appendChild(card));
+  }
+
   function applyFilter(filter, showAll) {
     currentFilter = filter;
     showingAll = showAll;
-    let matchCount = 0;
 
-    allVideoCards.forEach(card => {
-      const matches = filter === 'all' || card.getAttribute('data-category') === filter;
+    if (filter === 'all') {
+      // Interleave and reorder DOM
+      const interleaved = buildInterleavedOrder();
+      reorderDOM(interleaved);
 
-      if (matches) {
-        matchCount++;
-        if (showAll || matchCount <= CARDS_PER_PAGE) {
+      // Show/hide based on pagination
+      interleaved.forEach((card, i) => {
+        if (showAll || i < CARDS_PER_PAGE) {
           card.style.display = '';
           card.style.opacity = '0';
           card.style.transform = 'translateY(20px)';
@@ -197,21 +237,39 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           card.style.display = 'none';
         }
-      } else {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          card.style.display = 'none';
-        }, 300);
-      }
-    });
+      });
 
-    // Show View More only if more than CARDS_PER_PAGE match
-    if (viewMoreWrap) {
-      if (matchCount > CARDS_PER_PAGE && !showAll) {
-        viewMoreWrap.style.display = '';
-      } else {
-        viewMoreWrap.style.display = 'none';
+      if (viewMoreWrap) {
+        viewMoreWrap.style.display = interleaved.length > CARDS_PER_PAGE && !showAll ? '' : 'none';
+      }
+    } else {
+      // Restore original DOM order first
+      reorderDOM(originalOrder);
+
+      // Filter by category
+      let matchCount = 0;
+      allVideoCards.forEach(card => {
+        const matches = card.getAttribute('data-category') === filter;
+        if (matches) {
+          matchCount++;
+          if (showAll || matchCount <= CARDS_PER_PAGE) {
+            card.style.display = '';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            card.style.display = 'none';
+          }
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (viewMoreWrap) {
+        viewMoreWrap.style.display = matchCount > CARDS_PER_PAGE && !showAll ? '' : 'none';
       }
     }
   }
@@ -224,8 +282,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Initial state: show first 12
+  // Initial state: show first 12 with interleaving
   applyFilter('all', false);
+n  // Re-interleave on resize (debounced)
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (currentFilter === 'all') applyFilter('all', showingAll);
+    }, 250);
+  });
 
   // View More button
   if (viewMoreBtn) {

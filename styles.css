@@ -1788,11 +1788,6 @@ lite-youtube[ready] .lty-playbtn {
   align-items: start;
 }
 
-/* Stagger: every 2nd column gets pushed down */
-.asset-grid > div:nth-child(4n+2) {
-  margin-top: 64px;
-}
-
 /* ================= CARD SHELL ================= */
 .asset-card {
   background: var(--bg-secondary);
@@ -1848,6 +1843,11 @@ lite-youtube[ready] .lty-playbtn {
 /* Reels cards: 9:16 portrait ratio */
 [data-category="reels"] .asset-card__media {
   aspect-ratio: 9 / 16;
+}
+
+/* Brand cards: 16:9 landscape ratio */
+[data-category="brand"] .asset-card__media {
+  aspect-ratio: 16 / 9;
 }
 
 .asset-card__media .video-embed {
@@ -1946,12 +1946,6 @@ lite-youtube[ready] .lty-playbtn {
   .asset-grid {
     grid-template-columns: repeat(6, 1fr);
   }
-  .asset-grid > div:nth-child(4n+2) {
-    margin-top: 0;
-  }
-  .asset-grid > div:nth-child(6n+2) {
-    margin-top: 48px;
-  }
 }
 
 /* Tablet: 3 columns */
@@ -1959,20 +1953,12 @@ lite-youtube[ready] .lty-playbtn {
   .asset-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-  .asset-grid > div:nth-child(4n+2),
-  .asset-grid > div:nth-child(6n+2) {
-    margin-top: 0;
-  }
 }
 
 /* Mobile / small tablets: 2 columns */
 @media (max-width: 900px) {
   .asset-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .asset-grid > div:nth-child(4n+2),
-  .asset-grid > div:nth-child(6n+2) {
-    margin-top: 0;
   }
 }
 
