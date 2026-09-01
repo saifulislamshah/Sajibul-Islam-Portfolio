@@ -2,16 +2,16 @@
    DESIGN SYSTEM
    ============================================ */
 :root {
-  /* Colors */
-  --bg-primary: #F7F7F5;
-  --bg-secondary: #FFFFFF;
-  --bg-dark: #081421;
-  --accent: #00CDBA;
-  --text-primary: #081421;
-  --text-secondary: #08142199;
+  /* Colors — Dark Navy + Neon Lime theme */
+  --bg-primary: #05050A;
+  --bg-secondary: #0F1520;
+  --bg-dark: #000000;
+  --accent: #CAF70B;
+  --text-primary: #F2F2F0;
+  --text-secondary: #F2F2F099;
   --text-light: #FFFFFF;
   --text-light-muted: #FFFFFF99;
-  --border: #E0E0DD;
+  --border: rgba(255, 255, 255, 0.12);
 
   /* Typography */
   --font-heading: 'Space Grotesk', 'Inter', sans-serif;
@@ -48,7 +48,7 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l14 9-6.5 1L10 20z' fill='%23000' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 5 2, auto;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l14 9-6.5 1L10 20z' fill='%23fff' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 5 2, auto;
 }
 
 a {
@@ -93,7 +93,7 @@ ul {
 }
 
 .nav.scrolled {
-  background: rgba(247, 247, 245, 0.85);
+  background: rgba(5, 5, 10, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 16px 0;
@@ -158,7 +158,7 @@ ul {
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--text-primary);
+  background: var(--text-light);
   transition: transform 0.3s, opacity 0.3s;
 }
 
@@ -399,8 +399,8 @@ ul {
 }
 
 .btn-primary {
-  background: var(--text-primary);
-  color: var(--text-light);
+  background: var(--text-light);
+  color: var(--bg-dark);
 }
 
 .btn-primary:hover {
@@ -456,7 +456,7 @@ ul {
 .showreel-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #081421 0%, #0d2a3a 40%, #1a3a4a 100%);
+  background: linear-gradient(135deg, #05050A 0%, #0A0A14 40%, #12121C 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -811,7 +811,7 @@ lite-youtube[ready] .lty-playbtn {
   width: 320px;
   height: 320px;
   background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(0,205,186,0.2);
+  border: 1px solid rgba(202,247,11,0.2);
   border-radius: 24px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -824,7 +824,7 @@ lite-youtube[ready] .lty-playbtn {
 .glass-card-inner {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--accent), #00a89d);
+  background: linear-gradient(135deg, var(--accent), #8FB800);
   border-radius: 16px;
   animation: glassPulse 3s ease-in-out infinite;
 }
@@ -959,7 +959,7 @@ lite-youtube[ready] .lty-playbtn {
 .discipline-card:hover {
   border-color: var(--accent);
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 205, 186, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 40px rgba(202, 247, 11, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
 }
 
 .discipline-num {
@@ -974,7 +974,7 @@ lite-youtube[ready] .lty-playbtn {
 
 .discipline-card:hover .discipline-num {
   letter-spacing: 0.1em;
-  text-shadow: 0 0 20px rgba(0, 205, 186, 0.4);
+  text-shadow: 0 0 20px rgba(202, 247, 11, 0.4);
 }
 
 .discipline-title {
@@ -1077,7 +1077,7 @@ lite-youtube[ready] .lty-playbtn {
 .skill-category:hover {
   border-color: var(--accent);
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 205, 186, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 40px rgba(202, 247, 11, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
 }
 
 .skill-cat-title {
@@ -1201,7 +1201,7 @@ lite-youtube[ready] .lty-playbtn {
 
 .software-item:hover img {
   border-color: var(--accent);
-  box-shadow: 0 8px 24px rgba(0, 205, 186, 0.15);
+  box-shadow: 0 8px 24px rgba(202, 247, 11, 0.15);
   background: var(--bg-primary);
 }
 
@@ -1366,7 +1366,7 @@ lite-youtube[ready] .lty-playbtn {
 
 .process-step:hover .process-num {
   opacity: 0.5;
-  text-shadow: 0 0 30px rgba(0, 205, 186, 0.3);
+  text-shadow: 0 0 30px rgba(202, 247, 11, 0.3);
 }
 
 .process-step-title {
@@ -1565,7 +1565,7 @@ lite-youtube[ready] .lty-playbtn {
 
 .contact-upwork:hover {
   background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(0, 205, 186, 0.2);
+  border-color: rgba(202, 247, 11, 0.2);
 }
 
 .upwork-logo {
@@ -1592,14 +1592,14 @@ lite-youtube[ready] .lty-playbtn {
   border-radius: 100px;
   letter-spacing: 0.08em;
   transition: all 0.4s var(--ease-out);
-  box-shadow: 0 4px 20px rgba(0, 205, 186, 0.3);
+  box-shadow: 0 4px 20px rgba(202, 247, 11, 0.3);
 }
 
 .upwork-btn:hover {
   background: #fff;
   color: var(--bg-dark);
   transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0, 205, 186, 0.4);
+  box-shadow: 0 8px 32px rgba(202, 247, 11, 0.4);
 }
 
 /* Contact Form */
@@ -1932,7 +1932,7 @@ lite-youtube[ready] .lty-playbtn {
 .video-view-more-btn:hover {
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 4px 16px rgba(0, 205, 186, 0.15);
+  box-shadow: 0 4px 16px rgba(202, 247, 11, 0.15);
 }
 
 .video-view-more-btn svg {
@@ -2066,7 +2066,7 @@ lite-youtube[ready] .lty-playbtn {
 .experience-card:hover {
   border-color: var(--accent);
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 205, 186, 0.06);
+  box-shadow: 0 20px 40px rgba(202, 247, 11, 0.06);
 }
 
 .experience-card-header {
