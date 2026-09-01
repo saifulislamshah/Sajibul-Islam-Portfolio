@@ -360,7 +360,8 @@ ul {
   border-radius: 16px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(145deg, #111827, #1a1a2e);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 .hero-profile-img {
