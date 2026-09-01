@@ -1788,6 +1788,11 @@ lite-youtube[ready] .lty-playbtn {
   align-items: start;
 }
 
+/* Brand cards span 2 columns to take 2 reels width */
+[data-category="brand"] {
+  grid-column: span 2;
+}
+
 /* ================= CARD SHELL ================= */
 .asset-card {
   background: var(--bg-secondary);
@@ -1946,6 +1951,9 @@ lite-youtube[ready] .lty-playbtn {
   .asset-grid {
     grid-template-columns: repeat(6, 1fr);
   }
+  [data-category="brand"] {
+    grid-column: span 2;
+  }
 }
 
 /* Tablet: 3 columns */
@@ -1953,12 +1961,18 @@ lite-youtube[ready] .lty-playbtn {
   .asset-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+  [data-category="brand"] {
+    grid-column: span 3;
+  }
 }
 
 /* Mobile / small tablets: 2 columns */
 @media (max-width: 900px) {
   .asset-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  [data-category="brand"] {
+    grid-column: span 2;
   }
 }
 

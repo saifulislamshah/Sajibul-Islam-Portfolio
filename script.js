@@ -181,11 +181,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const originalOrder = [...allVideoCards];
 
   // Get interleaving pattern based on viewport width
+  // Pattern must match CSS grid-column spans so brands fill complete rows
   function getInterleavePattern() {
     const w = window.innerWidth;
-    if (w <= 900) return { reelsPerGroup: 2, brandsPerGroup: 1 }; // Mobile
-    if (w <= 1200) return { reelsPerGroup: 6, brandsPerGroup: 3 }; // Mini PC
-    return { reelsPerGroup: 4, brandsPerGroup: 2 }; // Full PC
+    if (w <= 900) return { reelsPerGroup: 2, brandsPerGroup: 1 }; // Mobile: 2 cols, brand span 2 = full row
+    if (w <= 1200) return { reelsPerGroup: 3, brandsPerGroup: 1 }; // Tablet: 3 cols, brand span 3 = full row
+    if (w >= 1800) return { reelsPerGroup: 6, brandsPerGroup: 3 }; // Wide: 6 cols, brand span 2, 3 brands = full row
+    return { reelsPerGroup: 4, brandsPerGroup: 2 }; // PC: 4 cols, brand span 2, 2 brands = full row
   }
 
   // Build interleaved order: reels first in groups, then brand cards mixed in
