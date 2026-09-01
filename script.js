@@ -224,6 +224,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
+  // ONLY ONE VIDEO PLAY AT A TIME
+  // ==========================================
+  let currentPlayingCard = null;
+
+  document.querySelectorAll('.asset-card__media').forEach(wrapper => {
+    const liteYT = wrapper.querySelector('lite-youtube');
+    if (!liteYT) return;
+
+    wrapper.addEventListener('click', (e) => {
+      if (currentPlayingCard && currentPlayingCard !== wrapper) {
+        const prevYT = currentPlayingCard.querySelector('lite-youtube');
+        if (prevYT && prevYT.querySelector('iframe')) {
+          prevYT.querySelector('iframe').contentWindow.postMessage('{"command":"pause"}', '*');
+        }
+      }
+      currentPlayingCard = wrapper;
+    });
+  });
+
+  // ==========================================
   // PROJECT CARD PARALLAX (subtle)
   // ==========================================
   const projectCards = document.querySelectorAll('.project-card');
