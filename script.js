@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial state: show first 12 with interleaving
   applyFilter('all', false);
-n  // Re-interleave on resize (debounced)
+  // Re-interleave on resize (debounced)
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
